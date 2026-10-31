@@ -1,0 +1,154 @@
+{
+  "generated_at": "2026-10-31T13:27:16+00:00",
+  "data": {
+    "source": "synthetic",
+    "is_synthetic": true,
+    "cleaning_report": {
+      "rows_in": 20060,
+      "duplicates_removed": 60,
+      "bad_severity_removed": 16,
+      "bad_timestamp_removed": 0,
+      "bad_coordinates_removed": 40,
+      "rows_out": 19944,
+      "missing_values_left": {
+        "weather": 295,
+        "light_condition": 214,
+        "road_surface": 184,
+        "driver_age": 426
+      }
+    },
+    "class_distribution": {
+      "Minor": {
+        "count": 14960,
+        "pct": 75.01
+      },
+      "Serious": {
+        "count": 3987,
+        "pct": 19.99
+      },
+      "Fatal": {
+        "count": 997,
+        "pct": 5.0
+      }
+    }
+  },
+  "severity": {
+    "n_train": 15955,
+    "n_test": 3989,
+    "selection_rule": "highest fatal-class F2 (recall weighted 4x precision); ties -> macro F1",
+    "best": {
+      "model": "logistic_regression",
+      "strategy": "class_weight",
+      "accuracy": 0.6853848082226122,
+      "macro_f1": 0.5262344734842905,
+      "fatal_recall": 0.6834170854271356,
+      "fatal_precision": 0.2518518518518518,
+      "fatal_f1": 0.3680649526387009,
+      "fatal_f2": 0.5089820359281437,
+      "fatal_pr_auc": 0.3614945482854324,
+      "roc_auc_ovr": 0.840092397094986,
+      "confusion_matrix": [
+        [
+          2254,
+          609,
+          129
+        ],
+        [
+          179,
+          344,
+          275
+        ],
+        [
+          7,
+          56,
+          136
+        ]
+      ],
+      "fit_seconds": 0.2
+    },
+    "saved_model": "severity_best.joblib",
+    "cross_validation": [
+      {
+        "model": "logistic_regression",
+        "strategy": "smote",
+        "folds": 3,
+        "fatal_recall_mean": 0.6666666666666666,
+        "fatal_recall_std": 0.023242151617783736,
+        "fatal_f2_mean": 0.516499782024786,
+        "macro_f1_mean": 0.5427996133819958
+      },
+      {
+        "model": "random_forest",
+        "strategy": "smote",
+        "folds": 3,
+        "fatal_recall_mean": 0.3583959899749373,
+        "fatal_recall_std": 0.014506061281692025,
+        "fatal_f2_mean": 0.36177009482060707,
+        "macro_f1_mean": 0.568359915073715
+      },
+      {
+        "model": "xgboost",
+        "strategy": "smote",
+        "folds": 3,
+        "fatal_recall_mean": 0.3195488721804511,
+        "fatal_recall_std": 0.011067369506676512,
+        "fatal_f2_mean": 0.33196532147184005,
+        "macro_f1_mean": 0.5492505200765766
+      },
+      {
+        "model": "lightgbm",
+        "strategy": "smote",
+        "folds": 3,
+        "fatal_recall_mean": 0.2882205513784461,
+        "fatal_recall_std": 0.013841304532816128,
+        "fatal_f2_mean": 0.30586211056843365,
+        "macro_f1_mean": 0.538341308226434
+      }
+    ],
+    "shap": {
+      "status": "ok",
+      "model": "xgboost + class_weight",
+      "top_features": [
+        "speed_limit",
+        "vehicle_type",
+        "road_type",
+        "safety_gear_used",
+        "driver_age"
+      ]
+    }
+  },
+  "hotspots": {
+    "kmeans": {
+      "k": 8,
+      "silhouette": 0.591
+    },
+    "dbscan": {
+      "eps_km": 0.3,
+      "min_samples": 30,
+      "n_clusters": 8,
+      "noise_pct": 35.97,
+      "silhouette": 0.9140348798865009
+    },
+    "kde": {
+      "bandwidth_km": 0.8
+    },
+    "synthetic_recovery": {
+      "planted": 8,
+      "recovered": 8,
+      "tolerance_km": 1.5
+    }
+  },
+  "risk_prototype": {
+    "n_rows": 6545,
+    "temporal_validation": {
+      "top_k_cells": 20,
+      "hit_rate_pct": 53.2,
+      "random_baseline_pct": 0.77,
+      "pai": 69.2,
+      "n_cells_in_area": 2601,
+      "split_date": "2023-08-08"
+    }
+  },
+  "project_completion_pct": 60.0,
+  "runtime_seconds": 36.4
+}
